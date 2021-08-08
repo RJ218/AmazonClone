@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var order = require('../models/order');
 var mongoose = require('mongoose');
+var auth = require('../middleware/auth');
 
-router.get('/getOrders', function(req, res){
+router.get('/getOrders' , function(req, res){
+
     order.find().populate('ProductId').populate('UserId').then(
         data=>{res.json(data);
         }).catch(err =>{
@@ -13,7 +15,7 @@ router.get('/getOrders', function(req, res){
 
 });
 
-router.post('/saveOrder', function(req, res){
+router.post('/saveOrder',  function(req, res){
     var productId = req.body.ProductId
     var userId = req.body.UserId
 

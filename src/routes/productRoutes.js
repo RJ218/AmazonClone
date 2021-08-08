@@ -3,8 +3,10 @@ var router = express.Router();
 var product = require('../models/product');
 var mongoose = require('mongoose');
 var fetch = require('node-fetch')
+var auth = require('../middleware/auth');
 
-router.get('/getProducts', function(req, res){
+//add a middleware , auhtorization, 
+router.get('/getProducts',  function(req, res){
     product.find().then(
         data=>{
             console.log(data)
@@ -12,7 +14,7 @@ router.get('/getProducts', function(req, res){
         }).catch(err =>{
             res.send('we could not get any product data');
         })
-
+   
 });
 
 router.post('/addProduct', function(req, res){
